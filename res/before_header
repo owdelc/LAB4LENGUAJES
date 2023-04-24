@@ -1,0 +1,13 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <algorithm>
+#include "direct.h"
+#include <vector>
+#include "structs.h"
+#include "dfa_utils.h"
+#include "regex_utils.h"
+#include "evaluate.h"
+
+using namespace std;

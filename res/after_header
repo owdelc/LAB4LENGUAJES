@@ -1,0 +1,57 @@
+int main(int argc, char* argv[])
+{
+    string srcPath = "regex/foo";
+    string outPath = "temp/temp.dfa";
+    string inputString = "";
+
+    vector<string> args;
+    for (int i = 1; i < argc; i++)
+        args.push_back(argv[i]);
+
+    bool use_out_file = false;
+    bool quiet = false;
+
+    for (int i = 0; i < args.size(); i++)
+    {
+        if (args[i] == "-q")
+            quiet = true;
+        if (i+1 < args.size())
+        {
+            if (args[i] == "-f"
+                && args[i+1] != "-t"
+                && args[i+1] != "-ts"
+                && args[i+1] != "-o"
+                && args[i+1] != "-c")
+                srcPath = args[++i];
+            
+            if (args[i] == "-o"
+                && args[i+1] != "-t"
+                && args[i+1] != "-ts"
+                && args[i+1] != "-f"
+                && args[i+1] != "-c")
+                {
+                    outPath = args[++i];
+                    use_out_file = true;
+                }
+        }
+    }
+
+    DFA* my_DFA;
+    
+
+    ifstream in_stream = ifstream("temp/temp.dfa", ios::out | ios::binary);
+    my_DFA = import_DFA(in_stream);
+    in_stream.close();
+
+    ifstream srcfile = ifstream(srcPath);
+    stringstream buffer;
+    
+    buffer << srcfile.rdbuf();
+    string input = buffer.str();
+
+    vector<token_info> tokens = tokenize(my_DFA, input);
+    for(auto&i:tokens)
+    {
+        //cout << i.content << "\t" << i.called << "\n";
+        cout << i.content << "\n";
+        

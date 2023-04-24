@@ -1,0 +1,4 @@
+*.o
+.vscode
+/*.png
+scanner.cpp

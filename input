@@ -1,0 +1,28 @@
+(* Lexer para Gramática No. 2 - Expresiones aritméticas extendidas *)
+
+{
+#define true 0
+}
+
+let delim = ["\s\t\n"]
+let ws = delim+
+let letter = ['A'-'Z''a'-'z']
+let digit = ['0'-'9']
+let digits = digit+
+let id = letter(letter|digit)*
+let number = digits('.'digits)?('E'['+''-']?digits)?
+
+rule tokens = 
+    ws                      
+  | id        { cout<<"ID\n"; }
+  | number    { cout<<"NUMBER\n"; }
+  | '+'       { cout<<"PLUS\n"; }
+  | '-'       { cout<<"MINUS\n"; }
+  | '*'       { cout<<"TIMES\n"; }
+  | '/'       { cout<<"DIV\n"; }
+  | '('       { cout<<"LPAREN\n"; }
+  | ')'       { cout<<"RPAREN\n"; }
+
+{
+  cout<<"Finished!"<<endl;
+}
